@@ -1,0 +1,9 @@
+bin
+.project
+.settings
+.git
+*.swp
+.DS_Store
+.classpath
+
+
