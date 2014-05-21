@@ -1,7 +1,15 @@
 package imomushi;
 
 public class Circle extends MoveShape {
-    public double radius;
+    private double radius;
+    
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+    
+    public double getRadius() {
+        return radius;
+    }
     
     public void move() {
         
