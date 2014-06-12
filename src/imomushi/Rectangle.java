@@ -18,7 +18,6 @@ public class Rectangle extends Shape {
         this.width = width;
         this.height = height;
     }
-
     public boolean collision_detection() {
         // TODO Auto-generated method stub
         return false;
