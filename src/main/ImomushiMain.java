@@ -1,10 +1,18 @@
 package main;
 
-public class ImomushiMain {
-    
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        
-    }
-    
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+import javax.swing.JFrame;
+
+import imomushi.Apple;
+
+import java.awt.*;
+
+import javax.swing.*;
+
+public class ImomushiMain extends JFrame {
+
 }
