@@ -10,7 +10,6 @@ public class Rectangle extends Shape {
     
     private double width;
     private double height;
-    private Rectangle2D rect;
     
     public Rectangle (double x, double y, double width, double height) {
         setCenter_x(x);
@@ -22,25 +21,11 @@ public class Rectangle extends Shape {
         // TODO Auto-generated method stub
         return false;
     }
-
-    @Override
-    public void paint(Graphics g) {
-        System.out.println(getCenter_x());
-        System.out.println(getCenter_y());
-        System.out.println(width);
-        System.out.println(height);
-        // TODO Auto-generated method stub
-        Graphics2D g2 = (Graphics2D)g;
-        
-        this.rect = new Rectangle2D.Double(getCenter_x(), getCenter_y(), width, height);
-        g2.fill(rect);
-        g2.draw(rect);
-    }
     
-    public void setWidth(double width) {
+    public void setRectWidth(double width) {
         this.width = width;
     }
-    public void setHeight(double height) {
+    public void setRectHeight(double height) {
         this.height = height;
     }
     
@@ -49,5 +34,17 @@ public class Rectangle extends Shape {
     }
     public double getRectHeight() {
         return this.height;
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        // TODO Auto-generated method stub
+        Graphics2D g2 = (Graphics2D)g;
+        
+        Rectangle2D.Double rect = new Rectangle2D.Double(getCenter_x(), getCenter_y(), width, height);
+        g2.setColor(Color.GRAY);
+        g2.fill(rect);
+        g2.setColor(Color.BLACK);
+        g2.draw(rect);
     }
 }

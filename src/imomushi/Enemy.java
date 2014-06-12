@@ -1,4 +1,4 @@
-package Imomushi;
+package imomushi;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,19 +21,14 @@ public class Enemy extends Circle{
 	private double radius_distance;
 	
 	public Enemy(double x, double y, double radius) {
-		super(x, y, radius);
-		//this.x = x;
-		//this.y = y;
-		//this.radius = radius;
-		setX(x);
-		setY(y);
+		setCenter_x(x);
+		setCenter_y(y);
 		setRadius(radius);
-		System.out.println("enemy x = " + getx() + ", enemy y = " + gety());
 	}
 	
 	public void move(double moveX, double moveY) {
-		setX(getx() + moveX);
-		setY(gety() + moveY);
+		setCenter_x(getCenter_x() + moveX);
+		setCenter_y(getCenter_y() + moveY);
 		
 		//System.out.println("x = " + x + ", y = " + y);
 	}
@@ -56,18 +51,12 @@ public class Enemy extends Circle{
 	
 	public void collision_detection(double cx, double cy, double cradius) {
 		
-		point_distance = Math.sqrt(Math.pow((getx() - cx), 2) + Math.pow((gety() - cy), 2));
+		point_distance = Math.sqrt(Math.pow((getCenter_x() - cx), 2) + Math.pow((getCenter_y() - cy), 2));
 		radius = getRadius();
 		
 		radius_distance = radius + cradius;
 		
-		//System.out.println("enemy x = " + getx());
-		//System.out.println("enemy y = " + gety());
 		System.out.println("enemy enemy_radius = " + getRadius());
-		
-		//System.out.println("caterpillar x = " + cx);
-		//System.out.println("caterpillar y = " + cy);
-		//System.out.println("caterpillar_radius = " + cradius);
 		
 		System.out.println("point_distance = " + point_distance);
 		
@@ -82,16 +71,5 @@ public class Enemy extends Circle{
 		return;
 	}
 	
-	public void paint(Graphics g) {
-		paint(g);
-//		Graphics2D g2 = (Graphics2D) g;
-//		
-//		Ellipse2D.Double rec = new Ellipse2D.Double(getx() - radius, gety() - radius, radius * 2, radius * 2);
-//		System.out.println("enemy x = " + getx());
-//		System.out.println("enemy y = " + gety());
-//		g2.setColor(Color.BLACK);
-//		g2.fill(rec);
-//		g2.draw(rec);
-	}
 	
 }

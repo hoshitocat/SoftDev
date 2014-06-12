@@ -62,3 +62,4 @@ public class Apple extends Circle {
     ArrayList<Point> listBody;
     return true;
   }
+}

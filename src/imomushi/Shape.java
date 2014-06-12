@@ -1,20 +1,8 @@
 package imomushi;
 
-import javax.swing.JApplet;
+import javax.swing.JPanel;
 
-public abstract class Shape extends JApplet implements Collitionable, Paintable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-import java.util.*;
-import java.awt.*;
-import java.applet.Applet;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.Timer;
-import java.util.Random;
-public abstract class Shape extends Applet implements Collitionable, Drawable {
+public abstract class Shape extends JPanel implements Collitionable, Paintable {
     private  double center_x;
     private double center_y;
     
