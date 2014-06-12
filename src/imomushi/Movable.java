@@ -1,5 +1,5 @@
 package imomushi;
 
 public interface Movable {
-    public void move();
+    public void move(double moveX, double moveY);
 }

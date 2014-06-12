@@ -1,6 +1,8 @@
 package main;
 
 import imomushi.Block;
+import imomushi.Enemy;
+import imomushi.MoveShape;
 import imomushi.Shape;
 
 import java.awt.BorderLayout;
@@ -19,9 +21,11 @@ public class ImomushiMain extends JFrame implements ActionListener {
     
     public static Timer time;
     
+    MoveShape enemy;
+    
     Random rand;
     
-    int speed = 200;
+    int speed = 500;
     int time_add = 0;
     int time_up = 5000;
 
@@ -66,18 +70,22 @@ public class ImomushiMain extends JFrame implements ActionListener {
             this.setVisible(true);
         }
         
+        enemy = new Enemy(rand.nextInt(getWidth()), rand.nextInt(getHeight()), 10);
+        this.add(enemy, BorderLayout.CENTER);
+        this.setVisible(true);
+        
         time = new Timer(speed, this);
         time.start();
     }
     
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
+        enemy.move(rand.nextDouble() * 100 - 30, rand.nextDouble() * 100 - 30);
         time_add += speed;
-        if (time_add == time_up) {
-            time.stop();
-        }
+//        if (time_add == time_up) {
+//            time.stop();
+//        }
         repaint();
     }
 }
