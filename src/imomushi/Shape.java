@@ -1,6 +1,12 @@
 package imomushi;
 
-public abstract class Shape implements Collitionable, Drawable {
+import javax.swing.JApplet;
+
+public abstract class Shape extends JApplet implements Collitionable, Paintable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private  double center_x;
     private double center_y;
     

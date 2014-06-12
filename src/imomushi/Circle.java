@@ -1,5 +1,8 @@
 package imomushi;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 public class Circle extends MoveShape {
     private double radius;
     
@@ -15,12 +18,14 @@ public class Circle extends MoveShape {
         
     }
     
-    public void draw() {
-        
-    }
-    
     public boolean collision_detection() {
         return true;
+        
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        // TODO Auto-generated method stub
         
     }
 }
