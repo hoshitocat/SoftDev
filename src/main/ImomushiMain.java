@@ -89,7 +89,7 @@ public class ImomushiMain extends JFrame implements ActionListener {
         }
         
         for (int i = 0; i < block_num; i++) {
-            mapBlock.add(new Block(rand.nextInt(getWidth() - 40) + 20, rand.nextInt(getHeight() - 40) + 20, 20, 20));
+            mapBlock.add(new Block(rand.nextInt(getWidth() - 100) + 20, rand.nextInt(getHeight() - 100) + 20, 20, 20));
             this.add(mapBlock.get(i), BorderLayout.CENTER);
             this.setVisible(true);
         }
@@ -102,7 +102,7 @@ public class ImomushiMain extends JFrame implements ActionListener {
         this.add(enemy_2, BorderLayout.CENTER);
         this.setVisible(true);
         
-        apple = new Apple(rand.nextInt(getWidth() -40) + 20, rand.nextInt(getHeight() - 40) + 20, 20);
+        apple = new Apple(rand.nextInt(getWidth() - 100) + 20, rand.nextInt(getHeight() - 100) + 20, 20);
         this.add(apple, BorderLayout.CENTER);
         this.setVisible(true);
         
@@ -142,6 +142,33 @@ public class ImomushiMain extends JFrame implements ActionListener {
             while(enemy_2.collision_detection(mapBlock.get(i)) || enemy_2.collision_detection(apple)) {
                 enemy_2.setSpeed(rand.nextInt(19));
                 enemy_2.move();
+            }
+        }
+        
+        if (apple.collision_detection(caterpillar)) {
+            Section newSection = new Section(sections.get(sections.size() - 1).getShapeX(),
+                    sections.get(sections.size() - 1).getShapeY(), 20, 0,
+                    sections.get(sections.size() - 1).getShapeX(),
+                    sections.get(sections.size() - 1).getShapeY());
+            this.add(newSection, BorderLayout.CENTER);
+            this.setVisible(true);
+            sections.add(newSection);
+        }
+        if (enemy.collision_detection(caterpillar)) {
+            caterpillar.dying();
+        }
+        for (Section section : sections) {
+            if (enemy.collision_detection(section)) {
+                caterpillar.dying();
+            }
+        }
+
+        if (enemy_2.collision_detection(caterpillar)) {
+            caterpillar.dying();
+        }
+        for (Section section : sections) {
+            if (enemy_2.collision_detection(section)) {
+                caterpillar.dying();
             }
         }
 

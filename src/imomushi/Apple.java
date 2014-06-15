@@ -31,7 +31,7 @@ public class Apple extends Circle {
         
         if (Math.abs(collisionShape.getShapeX() - this.getShapeX()) < this.getShapeWidth() - 5.0) {
             if (Math.abs(collisionShape.getShapeY() - this.getShapeY()) < this.getShapeHeight() - 5.0) {
-                Caterpillar.increase_section();
+                this.move();
                 return true; 
             }
             else {

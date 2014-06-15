@@ -48,8 +48,8 @@ public class Enemy extends Circle{
     @Override
     public boolean collision_detection(Shape collisionShape) {
         
-        if (Math.abs(collisionShape.getShapeX() - this.getShapeX()) < this.getShapeWidth() - 5.0) {
-            if (Math.abs(collisionShape.getShapeY() - this.getShapeY()) < this.getShapeHeight() - 5.0) {
+        if (Math.abs(collisionShape.getShapeX() - this.getShapeX()) < this.getShapeWidth()) {
+            if (Math.abs(collisionShape.getShapeY() - this.getShapeY()) < this.getShapeHeight()) {
                return true;
             }
             else {

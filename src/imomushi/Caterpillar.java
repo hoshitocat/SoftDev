@@ -56,11 +56,6 @@ public class Caterpillar extends Circle implements KeyListener {
         
     }
     
-    public static void increase_section() {
-        // ImomushiMain.section.add(new Section(moveX + 20.0, moveY, 20.0));
-        System.out.println("節増えた.");
-    }
-    
     public static void dying() {
         // TODO 自動生成されたメソッド・スタブ
         JOptionPane.showMessageDialog(null, "m9(^Д^)ﾌﾟｷﾞｬｰ");
