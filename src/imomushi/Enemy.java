@@ -1,43 +1,47 @@
 package imomushi;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Ellipse2D;
+import java.util.Random;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
-
-import main.ImomushiMain;
 
 public class Enemy extends Circle{
     
     public double radius;
-    private double point_distance;
-    private double radius_distance;
     
     public Enemy(double x, double y, double radius) {
         super(x, y, radius);
     }
     
-    public void move(double moveX, double moveY) {
-        setCenter_x(getCenter_x() + moveX);
-        setCenter_y(getCenter_y() + moveY);
+    public void move() {
+        double moveX;
+        double moveY;
+        Random rand = new Random();
+        
+        moveX = getShapeX() + rand.nextDouble() * 100 - 50; // nextDouble()は0 <= n < 1の値を返す
+        moveY = getShapeY() + rand.nextDouble() * 100 - 50;
+        
+        while (moveX > getWidth() - 40 || moveX < 20) {
+            moveX = getShapeX() + rand.nextDouble() * 100 - 50;
+        }
+        while (moveY > getHeight() - 40 || moveY < 20) {
+            moveY = getShapeY() + rand.nextDouble() * 100 - 50;
+        }
+        setShapeX(moveX);
+        setShapeY(moveY);
     }
     
-    public boolean collision_detection(double cx, double cy, double cradius) {
+    @Override
+    public boolean collision_detection(Shape collisionShape) {
         
-        point_distance = Math.sqrt(Math.pow((getCenter_x() - cx), 2) + Math.pow((getCenter_y() - cy), 2));
-        radius = getRadius();
-        
-        radius_distance = radius + cradius;
-        
-        if(point_distance + 5.0 < radius_distance) {
+        if (Math.abs(collisionShape.getShapeX() - this.getShapeX()) < this.getShapeWidth()) {
+            if (Math.abs(collisionShape.getShapeY() - this.getShapeY()) < this.getShapeHeight()) {
+               return true; 
+            }
+            else {
+                return false;
+            }
+        }
+        else {
             return false;
         }
-        return true;
     }
 }

@@ -8,6 +8,7 @@ import imomushi.Shape;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.Timer;
@@ -18,14 +19,17 @@ public class ImomushiMain extends JFrame implements ActionListener {
     
     public static final int FWIDTH = 800;
     public static final int FHEIGHT = 600;
+    private int block_num = 3;
     
     public static Timer time;
     
+    ArrayList<Shape> mapBlock;
     MoveShape enemy;
+    MoveShape enemy_2;
     
     Random rand;
     
-    int speed = 500;
+    int speed = 800;
     int time_add = 0;
     int time_up = 5000;
 
@@ -34,8 +38,8 @@ public class ImomushiMain extends JFrame implements ActionListener {
     }
     
     public ImomushiMain() {
-        int block_num = 3;
         rand = new Random();
+        mapBlock = new ArrayList<Shape>();
         
         this.setSize(FWIDTH, FHEIGHT);
         this.setVisible(true);
@@ -65,13 +69,17 @@ public class ImomushiMain extends JFrame implements ActionListener {
         }
         
         for (int i = 0; i < block_num; i++) {
-            Shape mapBlock = new Block(rand.nextInt(getWidth() - 80) + 40, rand.nextInt(getHeight() - 80) + 40, 20, 20);
-            this.add(mapBlock, BorderLayout.CENTER);
+            mapBlock.add(new Block(rand.nextInt(getWidth() - 40) + 20, rand.nextInt(getHeight() - 40) + 20, 20, 20));
+            this.add(mapBlock.get(i), BorderLayout.CENTER);
             this.setVisible(true);
         }
         
-        enemy = new Enemy(rand.nextInt(getWidth()), rand.nextInt(getHeight()), 10);
+        enemy = new Enemy(rand.nextInt(getWidth()), rand.nextInt(getHeight()), 20);
         this.add(enemy, BorderLayout.CENTER);
+        this.setVisible(true);
+        
+        enemy_2 = new Enemy(rand.nextInt(getWidth()), rand.nextInt(getHeight()), 20);
+        this.add(enemy_2, BorderLayout.CENTER);
         this.setVisible(true);
         
         time = new Timer(speed, this);
@@ -81,7 +89,19 @@ public class ImomushiMain extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        enemy.move(rand.nextDouble() * 100 - 30, rand.nextDouble() * 100 - 30);
+        enemy.move();
+        for (int i = 0; i < block_num; i++) {
+            while(enemy.collision_detection(mapBlock.get(i))) {
+                enemy.move();
+            }
+        }
+        enemy_2.move();
+        for (int i = 0; i < block_num; i++) {
+            while(enemy_2.collision_detection(mapBlock.get(i))) {
+                enemy_2.move();
+            }
+        }
+
         time_add += speed;
 //        if (time_add == time_up) {
 //            time.stop();
