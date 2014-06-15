@@ -9,6 +9,7 @@ import imomushi.Section;
 import imomushi.Shape;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -26,7 +27,8 @@ public class ImomushiMain extends JFrame implements ActionListener {
     
     public static Timer time;
     
-    ArrayList<Shape> mapBlock;
+    // ArrayList<Shape> mapBlock;
+    ArrayList<MoveShape> poizon;
     MoveShape enemy;
     MoveShape enemy_2;
     MoveShape apple;
@@ -46,7 +48,8 @@ public class ImomushiMain extends JFrame implements ActionListener {
     
     public ImomushiMain() {
         rand = new Random();
-        mapBlock = new ArrayList<Shape>();
+//        mapBlock = new ArrayList<Shape>();
+        poizon = new ArrayList<MoveShape>();
         sections = new ArrayList<Section>();
         
         this.setSize(FWIDTH, FHEIGHT);
@@ -88,9 +91,14 @@ public class ImomushiMain extends JFrame implements ActionListener {
             this.setVisible(true);
         }
         
+//        for (int i = 0; i < block_num; i++) {
+//            mapBlock.add(new Block(rand.nextInt(getWidth() - 100) + 20, rand.nextInt(getHeight() - 100) + 20, 40, 40));
+//            this.add(mapBlock.get(i), BorderLayout.CENTER);
+//            this.setVisible(true);
+//        }
         for (int i = 0; i < block_num; i++) {
-            mapBlock.add(new Block(rand.nextInt(getWidth() - 100) + 20, rand.nextInt(getHeight() - 100) + 20, 20, 20));
-            this.add(mapBlock.get(i), BorderLayout.CENTER);
+            poizon.add(new Apple(rand.nextInt(getWidth() - 100) + 20, rand.nextInt(getHeight() - 100) + 20, 40, new Color(135, 0, 204)));
+            this.add(poizon.get(i), BorderLayout.CENTER);
             this.setVisible(true);
         }
         
@@ -102,7 +110,7 @@ public class ImomushiMain extends JFrame implements ActionListener {
         this.add(enemy_2, BorderLayout.CENTER);
         this.setVisible(true);
         
-        apple = new Apple(rand.nextInt(getWidth() - 100) + 20, rand.nextInt(getHeight() - 100) + 20, 20);
+        apple = new Apple(rand.nextInt(getWidth() - 100) + 20, rand.nextInt(getHeight() - 100) + 20, 20, Color.RED);
         this.add(apple, BorderLayout.CENTER);
         this.setVisible(true);
         
@@ -114,6 +122,24 @@ public class ImomushiMain extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         caterpillar.move();
+        
+        if (caterpillar.getShapeX() < 39) {
+            caterpillar.setDirection(0);
+            caterpillar.decrease_section(sections);
+        }
+        else if (caterpillar.getShapeX() > getWidth() - 41) {
+            caterpillar.setDirection(180);
+            caterpillar.decrease_section(sections);
+        }
+        else if (caterpillar.getShapeY() < 39) {
+            caterpillar.setDirection(90);
+            caterpillar.decrease_section(sections);
+        }
+        else if (caterpillar.getShapeY() > getHeight() - 61) {
+            caterpillar.setDirection(270);
+            caterpillar.decrease_section(sections);
+        }
+        
         for (Section section : sections) {
             section.move();
         }
@@ -131,7 +157,7 @@ public class ImomushiMain extends JFrame implements ActionListener {
         enemy.setSpeed(rand.nextInt(19));
         enemy.move();
         for (int i = 0; i < block_num; i++) {
-            while(enemy.collision_detection(mapBlock.get(i)) || enemy.collision_detection(apple)) {
+            while(enemy.collision_detection(poizon.get(i)) || enemy.collision_detection(apple)) {
                 enemy.setSpeed(rand.nextInt(19));
                 enemy.move();
             }
@@ -139,7 +165,7 @@ public class ImomushiMain extends JFrame implements ActionListener {
         enemy_2.setSpeed(rand.nextInt(19));
         enemy_2.move();
         for (int i = 0; i < block_num; i++) {
-            while(enemy_2.collision_detection(mapBlock.get(i)) || enemy_2.collision_detection(apple)) {
+            while(enemy_2.collision_detection(poizon.get(i)) || enemy_2.collision_detection(apple)) {
                 enemy_2.setSpeed(rand.nextInt(19));
                 enemy_2.move();
             }
@@ -154,6 +180,12 @@ public class ImomushiMain extends JFrame implements ActionListener {
             this.setVisible(true);
             sections.add(newSection);
         }
+
+        for (MoveShape poizonApple : poizon) {
+            if (poizonApple.collision_detection(caterpillar))
+                caterpillar.decrease_section(sections);
+        }
+        
         if (enemy.collision_detection(caterpillar)) {
             caterpillar.dying();
         }
@@ -171,11 +203,13 @@ public class ImomushiMain extends JFrame implements ActionListener {
                 caterpillar.dying();
             }
         }
-
         time_add += speed;
-//        if (time_add == time_up) {
-//            time.stop();
-//        }
+        if (time_add % 10000 == 0) {
+            caterpillar.decrease_section(sections);
+        }
         repaint();
+        if (sections.size() == 0) {
+            caterpillar.dying();
+        }
     }
 }

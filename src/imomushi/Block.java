@@ -12,9 +12,10 @@ public class Block extends Rectangle {
     }
     @Override
     public boolean collision_detection(Shape collisionShape) {
-        
-        if (Math.abs(collisionShape.getShapeX() - this.getShapeX()) < this.getShapeWidth()) {
-            if (Math.abs(collisionShape.getShapeY() - this.getShapeX()) < this.getShapeHeight()) {
+        System.out.println(Math.abs(collisionShape.getShapeX() - this.getShapeX()));
+        if (Math.abs(collisionShape.getShapeX() - this.getShapeX()) <= this.getShapeWidth()) {
+            if (Math.abs(collisionShape.getShapeY() - this.getShapeX()) <= this.getShapeHeight()) {
+               System.out.println("ブロックと衝突しました");
                return true; 
             }
             else {

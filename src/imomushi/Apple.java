@@ -6,21 +6,16 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-import main.ImomushiMain;
-
 public class Apple extends Circle {
     
-    private double point_distance;
-    private double radius;
-    private double radius_distance;
+    private Color color;
     
-    public Apple(double x, double y, double radius) {
+    public Apple(double x, double y, double radius, Color color) {
         super(x, y, radius);
         // TODO 自動生成されたコンストラクター・スタブ
+        this.color = color;
     }
     public void move() {
-        double moveX;
-        double moveY;
         Random rand = new Random();
         
         setShapeX(rand.nextInt(getWidth() - 40) + 20);
@@ -49,7 +44,7 @@ public class Apple extends Circle {
         Graphics2D g2 = (Graphics2D) g;
         
         Ellipse2D.Double rec = new Ellipse2D.Double(getShapeX(), getShapeY(), getShapeWidth(), getShapeHeight());
-        g2.setColor(Color.RED);
+        g2.setColor(color);
         g2.fill(rec);
         g2.draw(rec);
     }
