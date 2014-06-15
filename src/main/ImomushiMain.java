@@ -29,7 +29,7 @@ public class ImomushiMain extends JFrame implements ActionListener {
     
     Random rand;
     
-    int speed = 800;
+    int speed = 50;
     int time_add = 0;
     int time_up = 5000;
 
@@ -74,11 +74,11 @@ public class ImomushiMain extends JFrame implements ActionListener {
             this.setVisible(true);
         }
         
-        enemy = new Enemy(rand.nextInt(getWidth()), rand.nextInt(getHeight()), 20);
+        enemy = new Enemy(rand.nextInt(getWidth()), rand.nextInt(getHeight()), 20, rand.nextInt(19));
         this.add(enemy, BorderLayout.CENTER);
         this.setVisible(true);
         
-        enemy_2 = new Enemy(rand.nextInt(getWidth()), rand.nextInt(getHeight()), 20);
+        enemy_2 = new Enemy(rand.nextInt(getWidth()), rand.nextInt(getHeight()), 20, rand.nextInt(19));
         this.add(enemy_2, BorderLayout.CENTER);
         this.setVisible(true);
         
@@ -89,15 +89,19 @@ public class ImomushiMain extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
+        enemy.setSpeed(rand.nextInt(19));
         enemy.move();
         for (int i = 0; i < block_num; i++) {
             while(enemy.collision_detection(mapBlock.get(i))) {
+                enemy.setSpeed(rand.nextInt(19));
                 enemy.move();
             }
         }
+        enemy_2.setSpeed(rand.nextInt(19));
         enemy_2.move();
         for (int i = 0; i < block_num; i++) {
             while(enemy_2.collision_detection(mapBlock.get(i))) {
+                enemy_2.setSpeed(rand.nextInt(19));
                 enemy_2.move();
             }
         }
