@@ -6,7 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
+
+import main.ImomushiMain;
 
 public class Caterpillar extends Circle implements KeyListener {
     
@@ -72,5 +76,18 @@ public class Caterpillar extends Circle implements KeyListener {
         g2.fill(rec);
         g2.draw(rec);
     }
+
+	public void decrease_section(ArrayList<Section> section) {
+		// TODO 自動生成されたメソッド・スタブ
+		if(section.size() == 0) {
+			Caterpillar.dying();
+			return;
+		}
+		section.get(section.size() - 1).setShapeX(1500.0);
+		section.get(section.size() - 1).setShapeY(1500.0);
+		section.remove(section.get(section.size() - 1));
+		System.out.println("10秒経過したので最後尾の節が消えました.");
+		return;
+	}
     
 }
