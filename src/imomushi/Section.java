@@ -1,31 +1,51 @@
 package imomushi;
 
-import java.util.Random;
-
-import main.ImomushiMain;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 
 public class Section extends Caterpillar{
-	
-	static double moveX;
-	static double moveY;
-	
-	public Section(double x, double y, double radius) {
-		super(x, y, radius);
-	}
-	
-	public void move() {
-		Random rand = new Random();
+    
+    private double followX;
+    private double followY;
+    
+    public Section(double x, double y, double radius, int direction, double followX, double followY) {
+        super(x, y, radius, direction);
+        // TODO Auto-generated constructor stub
+        this.followX = followX;
+        this.followY = followY;
+    }
+    
+    public void setFollowX(double x) {
+        this.followX = x;
+    }
+    
+    public void setFollowY(double y) {
+        this.followY = y;
+    }
+    
+    public double getFollowX() {
+        return this.followX;
+    }
+    
+    public double getFollowY() {
+        return this.followY;
+    }
+    
+    public void move() {
+        setShapeX(followX);
+        setShapeY(followY);
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        // TODO 自動生成されたメソッド・スタブ
+        Graphics2D g2 = (Graphics2D) g;
         
-        //moveX = ; // nextDouble()は0 <= n < 1の値を返す
-        //moveY = ;
-        
-        while (moveX > getWidth() - 40 || moveX < 20) {
-            moveX = getShapeX() + rand.nextDouble() * 100 - 50;
-        }
-        while (moveY > getHeight() - 40 || moveY < 20) {
-            moveY = getShapeY() + rand.nextDouble() * 100 - 50;
-        }
-        setShapeX(moveX);
-        setShapeY(moveY);
-	}
+        Ellipse2D.Double rec = new Ellipse2D.Double(getShapeX(), getShapeY(), getShapeWidth(), getShapeHeight());
+        g2.setColor(Color.BLUE);
+        g2.fill(rec);
+        g2.draw(rec);
+    }
 }
